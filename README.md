@@ -16,5 +16,10 @@ $params = [
   'thread_id' =>  2,				//integer (default = 0)
   'content'   =>  'asd'				//required, string
 ];
-return Comment::addComment($params);
+
+/*
+*	@return integer comment_id (if success)
+*			null (if failed)
+*/
+Comment::addComment($params);		//returns comment id if success or null if failed
 ```
