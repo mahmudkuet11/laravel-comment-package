@@ -61,7 +61,12 @@ class PackageServiceProvider extends ServiceProvider {
     {
         $this->mergeConfigFrom( __DIR__.'/../config/config.php', $this->packageName);
 
-        //
+        // Register 'underlyingclass' instance container to our UnderlyingClass object
+        $this->app['comment'] = $this->app->share(function($app)
+        {
+            return new \Mahmud\Comment\Comment;
+        });
+
     }
 
 }
