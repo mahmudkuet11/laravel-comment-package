@@ -15,6 +15,7 @@ class CreateMahmudCommentsTable extends Migration
         Schema::create('mahmud_comments', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
+            $table->string('namespace');
             $table->bigInteger('thread_id');
             $table->bigInteger('parent_id');
             $table->text('content');

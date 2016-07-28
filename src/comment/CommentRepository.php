@@ -10,7 +10,7 @@ class CommentRepository implements CommentContract{
         $this->commentModel = $commentModel;
     }
 
-    public function addComment($user_id, $thread_id, $parent_id, $content, $is_approved){
+    public function addComment($user_id, $namespace, $thread_id, $parent_id, $content, $is_approved){
         if($user_id == null)        $user_id        = 0;
         if($thread_id == null)      $thread_id      = 0;
         if($parent_id == null)      $parent_id      = 0;
@@ -19,6 +19,7 @@ class CommentRepository implements CommentContract{
 
 
         $this->commentModel->user_id        = $user_id;
+        $this->commentModel->namespace      = $namespace;
         $this->commentModel->thread_id      = $thread_id;
         $this->commentModel->parent_id      = $parent_id;
         $this->commentModel->content        = $content;
