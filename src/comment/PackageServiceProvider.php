@@ -1,4 +1,4 @@
-<?php namespace Vendor\Package;
+<?php namespace Mahmud\Comment;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -15,7 +15,7 @@ class PackageServiceProvider extends ServiceProvider {
      *
      * --> Replace with your package name <--
      */
-    protected $packageName = 'package';
+    protected $packageName = 'mahmud-comment';
 
     /**
      * Bootstrap the application services.

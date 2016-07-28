@@ -1,12 +1,12 @@
 {
-    "name": "vendor/package",
-    "description": "",
+    "name": "mahmud/comment",
+    "description": "Simple comment system for Laravel",
     "keywords": [],
     "homepage": "",
     "authors": [
         {
-            "name": "",
-            "email": ""
+            "name": "MD. Mahmud Ur Rahman",
+            "email": "mahmudkuet11@gmail.com"
         }
     ],
     "require": {
@@ -17,7 +17,7 @@
     },
     "autoload": {
        "psr-4": {
-         "Vendor\\Package\\": "src/Package"
+         "Mahmud\\Comment\\": "src/comment"
         }
     },
     "license": "MIT"
