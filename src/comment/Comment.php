@@ -48,9 +48,11 @@ class Comment{
             try{
                 if($this->commentRepository->editComment($comment_id, $content) == true){
                     return ['status_code'=>'200', 'status_text'=>'success','message'=>'comment is updated'];
+                }else{
+                    return ['status_code'=>'502', 'status_text'=>'error', 'message'=>'comment could not be updated'];
                 }
             }catch (Exception $e){
-                return ['status_code'=>'501', 'status_text'=>'error', 'message'=>$e->getMessage()];
+                return ['status_code'=>'501', 'status_text'=>'not found', 'message'=>$e->getMessage()];
             }
         }
     }
@@ -74,6 +76,28 @@ class Comment{
                 return ['status_code'=>'501', 'status_text'=>'error','message'=>$e->getMessage()];
             }
 
+        }
+    }
+
+    public function approveComment($comment_id){
+        $param = ['comment_id'=>$comment_id];
+        $validator = Validator::make($param, [
+            'comment_id'    =>  'required|integer'
+        ]);
+
+        if($validator->fails()){
+            return ['status_code'=>'500', 'status_text'=>'validation error', 'message'=>$validator->errors()];
+        }else{
+            
+            try{
+                if($this->commentRepository->approveComment($comment_id) == true){
+                    return ['status_code'=>'200', 'status_text'=>'success','message'=>'comment is approved'];
+                }else{
+                    return ['status_code'=>'502', 'status_text'=>'error', 'message'=>'comment could not be approved'];
+                }
+            }catch (Exception $e){
+                return ['status_code'=>'501', 'status_text'=>'not found', 'message'=>$e->getMessage()];
+            }
         }
     }
     

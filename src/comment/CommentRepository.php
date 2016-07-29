@@ -55,5 +55,16 @@ class CommentRepository implements CommentContract{
             return $comment->delete();
         }
     }
+
+    public function approveComment($comment_id){
+        $comment = $this->commentModel->find($comment_id);
+        if($comment == null){
+            throw new Exception("Comment not found with id : {$comment_id}");
+        }
+        else{
+            return $comment->update(['is_approved' => 1]);
+
+        }
+    }
     
 }

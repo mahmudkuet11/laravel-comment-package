@@ -150,6 +150,54 @@ Comment::deleteComment($comment_id);
 }
 ```
 
+### Approve comment
+
+``` php
+$comment_id = 1;                        //required, integer
+Comment::approveComment($comment_id);
+```
+**Returns:**
+
+* if comment not found:
+```
+{
+    "status_code": "501",
+    "status_text": "not found",
+    "message": "Comment not found with id : 1"
+}
+```
+
+* if validation error:
+```
+{
+    "status_code": "500",
+    "status_text": "validation error",
+    "message": {
+    "comment_id": [
+            "The comment id field is required."
+        ]
+    }
+}
+```
+
+* if other errors:
+```
+{
+    "status_code": "502",
+    "status_text": "error",
+    "message": "comment could not be approved"
+}
+```
+
+* if success:
+```
+{
+  "status_code": "200",
+  "status_text": "success",
+  "message": "comment is approved"
+}
+```
+
 ### Status Code:
 
 | Status code | Status text      |
