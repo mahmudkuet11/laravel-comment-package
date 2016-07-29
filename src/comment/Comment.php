@@ -2,6 +2,7 @@
 
 namespace Mahmud\Comment;
 
+use Mockery\CountValidator\Exception;
 use Validator;
 
 class Comment{
@@ -30,6 +31,27 @@ class Comment{
             if(!array_has($params, 'is_approved'))  $params['is_approved']  = 1;
             
             return $this->commentRepository->addComment($params['user_id'], $params['namespace'], $params['thread_id'], $params['parent_id'], $params['content'], $params['is_approved']);
+        }
+    }
+    
+    public function editComment($params){
+        $validator = Validator::make($params, [
+            'comment_id'    =>  'required|integer',
+            'content'       =>  'required|string'
+        ]);
+        
+        if($validator->fails()){
+            return ['status_code'=>'500', 'status_text'=>'validation error', 'message'=>$validator->errors()];
+        }else{
+            $comment_id = $params['comment_id'];
+            $content    = $params['content'];
+            try{
+                if($this->commentRepository->editComment($comment_id, $content) == true){
+                    return ['status_code'=>'200', 'status_text'=>'success','message'=>'comment is updated'];
+                }
+            }catch (Exception $e){
+                return ['status_code'=>'501', 'status_text'=>'error', 'message'=>$e->getMessage()];
+            }
         }
     }
     

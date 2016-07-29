@@ -40,11 +40,12 @@ use Comment;
 .....
 
 $params = [
-  'user_id'   =>  1,				//integer (default = 0)
-  'namespace' =>  'post_comment',	//required, string
-  'parent_id' =>  1,				//integer (default = 0)
-  'thread_id' =>  2,				//integer (default = 0)
-  'content'   =>  'hello there'		//required, string
+  'user_id'   		=>  1,				    //integer (default = 0)
+  'namespace' 		=>  'post_comment',	    //required, string
+  'parent_id' 		=>  1,				    //integer (default = 0)
+  'thread_id' 		=>  2,				    //integer (default = 0)
+  'content'   		=>  'hello there'	    //required, string
+  'is_approved'   	=>  1				    //1 or 0 (default = 1)
 ];
 
 /*
@@ -52,4 +53,49 @@ $params = [
 *			null (if failed)
 */
 Comment::addComment($params);		//returns comment id if success or null if failed
+```
+
+### Edit comment
+
+``` php
+$params = [
+    'comment_id'    =>  1,                      //required, integer
+    'content'       =>  'edited comment'        //required, string
+];
+return  Comment::editComment($params);
+```
+**Returns:**
+
+* if comment not found: 
+```
+{
+  "status_code": "501",
+  "status_text": "error",
+  "message": "Comment not found with id : 3"
+}
+```
+
+* if parameters are not valid:
+```
+{
+      "status_code": "500",
+      "status_text": "validation error",
+      "message": {
+            "comment_id": [
+                  "The comment id field is required."
+                ],
+            "content": [
+                  "The content field is required."
+                ]
+      }
+}
+```
+
+* if comment is updated successfully:
+```
+{
+  "status_code": "200",
+  "status_text": "success",
+  "message": "comment is updated"
+}
 ```

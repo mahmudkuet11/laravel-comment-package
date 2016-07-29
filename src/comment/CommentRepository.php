@@ -2,6 +2,8 @@
 
 namespace Mahmud\Comment;
 
+use Mockery\CountValidator\Exception;
+
 class CommentRepository implements CommentContract{
     
     private $commentModel;
@@ -32,6 +34,17 @@ class CommentRepository implements CommentContract{
             return null;
         }
 
+    }
+
+    public function editComment($comment_id, $content){
+        $comment = $this->commentModel->find($comment_id);
+        if($comment == null){
+            throw new Exception("Comment not found with id : {$comment_id}");
+        }
+        else{
+            return $comment->update(['content' => $content]);
+
+        }
     }
     
 }
