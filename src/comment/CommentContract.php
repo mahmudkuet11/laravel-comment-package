@@ -7,4 +7,5 @@ interface CommentContract{
     public function editComment($comment_id, $content);
     public function deleteComment($comment_id);
     public function approveComment($comment_id);
+    public function getComments($offset, $count, $approve_check);
 }

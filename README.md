@@ -198,6 +198,50 @@ Comment::approveComment($comment_id);
 }
 ```
 
+### Get comments
+
+``` php
+    $params = [
+        'offset'        =>  2,                  // how many result will be skipped
+        'count'         =>  15,                 // how many results will be picked
+        'approve_check' =>  true                // consider approval or not
+    ];
+    return  Comment::getComments($params);
+```
+
+**Returns:**
+
+```
+{
+  "status_code": 200,
+  "status_text": "success",
+  "comments": [
+    {
+      "id": 4,
+      "user_id": 1,
+      "namespace": "group_comment",
+      "thread_id": 2,
+      "parent_id": 1,
+      "content": "asd",
+      "is_approved": 1,
+      "created_at": "2016-07-29 04:36:07",
+      "updated_at": "2016-07-29 04:36:07"
+    },
+    {
+      "id": 6,
+      "user_id": 1,
+      "namespace": "group_comment",
+      "thread_id": 2,
+      "parent_id": 1,
+      "content": "asd",
+      "is_approved": 0,
+      "created_at": "2016-07-29 04:37:57",
+      "updated_at": "2016-07-29 05:02:38"
+    }
+  ]
+}
+```
+
 ### Status Code:
 
 | Status code | Status text      |

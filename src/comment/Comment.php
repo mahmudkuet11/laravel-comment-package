@@ -101,4 +101,29 @@ class Comment{
         }
     }
     
+    public function getComments($params){
+        $validator = Validator::make($params, [
+            'offset'         =>  'required|integer',
+            'count'         =>  'required|integer',
+            'approve_check' =>  'boolean'
+        ]);
+
+        if($validator->fails()){
+            return ['status_code'=>'500', 'status_text'=>'validation error', 'message'=>$validator->errors()];
+        }else{
+            $offset = $params['offset'];
+            $count = $params['count'];
+            if(array_has($params, 'approve_check')){
+                $approve_check = $params['approve_check'];
+            }else{
+                $approve_check = false;
+            }
+            return [
+                'status_code'   =>  200,
+                'status_text'   =>  'success',
+                'comments'      =>  $this->commentRepository->getComments($offset, $count, $approve_check)
+            ];
+        }
+    }
+    
 }

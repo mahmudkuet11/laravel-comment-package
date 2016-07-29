@@ -66,5 +66,13 @@ class CommentRepository implements CommentContract{
 
         }
     }
+
+    public function getComments($offset, $count, $approve_check){
+        if($approve_check){
+            return $this->commentModel->where('is_approved', 1)->offset($offset)->take($count)->get();
+        }else{
+            return $this->commentModel->offset($offset)->take($count)->get();
+        }
+    }
     
 }
