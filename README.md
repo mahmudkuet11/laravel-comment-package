@@ -2,7 +2,9 @@
 This is package for simple comment system
 
 # installation
+
 To install this package follow these steps:
+
 1. Add dependency to **composer.json**
 ``` javascript
     "require": {
