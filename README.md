@@ -101,3 +101,60 @@ return  Comment::editComment($params);
   "message": "comment is updated"
 }
 ```
+
+### Delete comment
+
+``` php
+$comment_id = 1;                        //required, integer
+Comment::deleteComment($comment_id);
+```
+**Returns:**
+
+* if comment not found:
+```
+{
+  "status_code": "501",
+  "status_text": "not found",
+  "message": "comment not found with id : 10"
+}
+```
+
+* if validation error:
+```
+{
+      "status_code": "500",
+      "status_text": "validation error",
+      "message": {
+            "comment_id": [
+                "The comment id must be an integer."
+            ]
+      }
+}
+```
+
+* if other errors:
+```
+{
+  "status_code": "502",
+  "status_text": "error",
+  "message": "comment could not be deleted"
+}
+```
+
+* if success:
+```
+{
+  "status_code": "200",
+  "status_text": "success",
+  "message": "comment is deleted"
+}
+```
+
+### Status Code:
+
+| Status code | Status text      |
+|:-----------:|:----------------:|
+|500          | validation error |
+|501          | not found        |
+|502          | error            |
+|200          | success          |

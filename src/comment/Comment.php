@@ -55,4 +55,26 @@ class Comment{
         }
     }
     
+    public function deleteComment($comment_id){
+        $param = ['comment_id'=>$comment_id];
+        $validator = Validator::make($param, [
+            'comment_id'    =>  'required|integer'
+        ]);
+        if($validator->fails()){
+            return ['status_code'=>'500', 'status_text'=>'validation error', 'message'=>$validator->errors()];
+        }else{
+            try{
+                $status = $this->commentRepository->deleteComment($comment_id);
+                if($status == true){
+                    return ['status_code'=>'200', 'status_text'=>'success','message'=>'comment is deleted'];
+                }else{
+                    return ['status_code'=>'501', 'status_text'=>'error','message'=>'comment could not be deleted'];
+                }
+            }catch (Exception $e){
+                return ['status_code'=>'501', 'status_text'=>'error','message'=>$e->getMessage()];
+            }
+
+        }
+    }
+    
 }

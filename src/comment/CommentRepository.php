@@ -46,5 +46,14 @@ class CommentRepository implements CommentContract{
 
         }
     }
+
+    public function deleteComment($comment_id){
+        $comment = $this->commentModel->find($comment_id);
+        if($comment == null){
+            throw new Exception("comment not found with id : {$comment_id}");
+        }else{
+            return $comment->delete();
+        }
+    }
     
 }
