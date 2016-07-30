@@ -109,7 +109,8 @@ class Comment{
         $validator = Validator::make($params, [
             'offset'         =>  'required|integer',
             'count'         =>  'required|integer',
-            'approve_check' =>  'boolean'
+            'approve_check' =>  'boolean',
+            'namespace'     => 'required'
         ]);
 
         if($validator->fails()){
@@ -117,6 +118,7 @@ class Comment{
         }else{
             $offset = $params['offset'];
             $count = $params['count'];
+            $namespace = $params['namespace'];
             if(array_has($params, 'approve_check')){
                 $approve_check = $params['approve_check'];
             }else{
@@ -125,7 +127,42 @@ class Comment{
             return [
                 'status_code'   =>  200,
                 'status_text'   =>  'success',
-                'comments'      =>  $this->commentRepository->getComments($offset, $count, $approve_check)
+                'total_comments'=>  $this->commentRepository->getTotalComments($namespace, $approve_check),
+                'comments'      =>  $this->commentRepository->getComments($namespace, $offset, $count, $approve_check)
+            ];
+        }
+    }
+
+    public function getCommentsByPage($params){
+        $validator = Validator::make($params, [
+            'comment_per_page'  =>  'required|integer',
+            'namespace'         =>  'required',
+            'approve_check'     =>  'boolean',
+            'page_number'       =>  'required|integer'
+        ]);
+
+        if($validator->fails()){
+            return ['status_code'=>'500', 'status_text'=>'validation error', 'message'=>$validator->errors()];
+        }else{
+            $namespace = $params['namespace'];
+            $comment_per_page = $params['comment_per_page'];
+            $page_no = $params['page_number'];
+            if(array_has($params, 'approve_check')){
+                $approve_check = $params['approve_check'];
+            }else{
+                $approve_check = false;
+            }
+
+            $total_comments = $this->commentRepository->getTotalComments($namespace, $approve_check);
+            $offset = ($page_no - 1) * $comment_per_page;
+            $comments = $this->commentRepository->getComments($namespace, $offset, $comment_per_page, $approve_check);
+            return [
+                'status_code'       =>  200,
+                'status_text'       =>  'success',
+                'total_comments'    =>  $total_comments,
+                'comment_per_page'  =>  $comment_per_page,
+                'page_number'       =>  $page_no,
+                'comments'          =>  $comments
             ];
         }
     }

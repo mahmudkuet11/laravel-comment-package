@@ -230,6 +230,7 @@ Comment::approveComment($comment_id);
 {
   "status_code": 200,
   "status_text": "success",
+  "total_comments": 16,
   "comments": [
     {
       "id": 4,
@@ -252,6 +253,53 @@ Comment::approveComment($comment_id);
       "is_approved": 0,
       "created_at": "2016-07-29 04:37:57",
       "updated_at": "2016-07-29 05:02:38"
+    }
+  ]
+}
+```
+
+### Get comments by page
+
+```php
+$params = [
+    'namespace'         =>  'group_comment',
+    'comment_per_page'  =>  3,
+    'page_number'       =>  3
+];
+return  Comment::getCommentsByPage($params);
+```
+
+**Returns:**
+
+```
+{
+  "status_code": 200,
+  "status_text": "success",
+  "total_comments": 16,
+  "comment_per_page": 3,
+  "page_number": 3,
+  "comments": [
+    {
+      "id": 9,
+      "user_id": 1,
+      "namespace": "group_comment",
+      "thread_id": 2,
+      "parent_id": 1,
+      "content": "asd",
+      "is_approved": 1,
+      "created_at": "2016-07-29 05:15:01",
+      "updated_at": "2016-07-29 05:15:01"
+    },
+    {
+      "id": 10,
+      "user_id": 1,
+      "namespace": "group_comment",
+      "thread_id": 2,
+      "parent_id": 1,
+      "content": "asd",
+      "is_approved": 1,
+      "created_at": "2016-07-29 05:15:01",
+      "updated_at": "2016-07-29 05:15:01"
     }
   ]
 }

@@ -67,12 +67,21 @@ class CommentRepository implements CommentContract{
         }
     }
 
-    public function getComments($offset, $count, $approve_check){
+    public function getComments($namespace, $offset, $count, $approve_check){
         if($approve_check){
-            return $this->commentModel->where('is_approved', 1)->offset($offset)->take($count)->get();
+            return $this->commentModel->where('is_approved', 1)->where('namespace', $namespace)->offset($offset)->take($count)->get();
         }else{
-            return $this->commentModel->offset($offset)->take($count)->get();
+            return $this->commentModel->where('namespace', $namespace)->offset($offset)->take($count)->get();
         }
+    }
+
+    public function getTotalComments($namespace, $approve_check){
+        if($approve_check){
+            return $this->commentModel->where('namespace', $namespace)->where('is_approved', 1)->count();
+        }else{
+            return $this->commentModel->where('namespace', $namespace)->count();
+        }
+        
     }
     
 }
