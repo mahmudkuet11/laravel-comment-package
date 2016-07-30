@@ -50,11 +50,26 @@ $params = [
   'is_approved'   	=>  1				    //1 or 0 (default = 1)
 ];
 
-/*
-*	@return integer comment_id (if success)
-*			null (if failed)
-*/
 Comment::addComment($params);		//returns comment id if success or null if failed
+```
+
+
+**Returns:**
+
+```
+// if success
+{
+  "status_code": 200,
+  "status_text": "success",
+  "message": "comment is added successfully"
+}
+
+// if error
+{
+  "status_code": 502,
+  "status_text": "error",
+  "message": "comment could not be added"
+}
 ```
 
 ### Edit comment

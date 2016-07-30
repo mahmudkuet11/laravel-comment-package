@@ -30,7 +30,11 @@ class Comment{
             if(!array_has($params, 'parent_id'))    $params['parent_id']    = 0;
             if(!array_has($params, 'is_approved'))  $params['is_approved']  = 1;
             
-            return $this->commentRepository->addComment($params['user_id'], $params['namespace'], $params['thread_id'], $params['parent_id'], $params['content'], $params['is_approved']);
+            if($this->commentRepository->addComment($params['user_id'], $params['namespace'], $params['thread_id'], $params['parent_id'], $params['content'], $params['is_approved'])){
+                return ['status_code'=>200, 'status_text'=>'success', 'message'=>'comment is added successfully'];
+            }else{
+                return ['status_code'=>502, 'status_text'=>'error', 'message'=>'comment could not be added'];
+            }
         }
     }
     
